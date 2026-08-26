@@ -33,8 +33,11 @@ time-lapse, or a short studio clip).
   <video src="images/your-clip.mp4" autoplay muted loop playsinline></video>
   ```
   The `autoplay muted loop playsinline` attributes make it play silently and
-  continuously as a thumbnail. Clicking it still opens the full-size lightbox,
-  where it switches to normal playback controls (with sound) automatically.
+  continuously as a thumbnail. Clicking it opens the same clip enlarged in
+  the lightbox — still silent and looping, just bigger — with a control bar
+  so it can be paused. (This assumes a silent looping clip rather than a
+  video with sound; get in touch if you ever want a version with audio
+  instead.)
 - Update `data-title`, `data-meta`, and `data-no` on the `<button>` so the
   lightbox (the click-to-enlarge popup) shows the right info.
 - To add or remove paintings, copy or delete a whole `<button class="piece">…</button>` block.

@@ -12,7 +12,6 @@ if (gallery && lightbox) {
   const noEl = document.getElementById('lightbox-no');
   const titleEl = document.getElementById('lightbox-title');
   const metaEl = document.getElementById('lightbox-meta');
-  const descEl = document.getElementById('lightbox-desc');
   const closeBtn = document.getElementById('lightbox-close');
 
   gallery.querySelectorAll('.piece').forEach(piece => {
@@ -20,7 +19,6 @@ if (gallery && lightbox) {
       noEl.textContent = piece.dataset.no || '';
       titleEl.textContent = piece.dataset.title || '';
       metaEl.textContent = piece.dataset.meta || '';
-      descEl.textContent = piece.dataset.desc || '';
 
       canvas.innerHTML = '';
       canvas.className = 'lightbox-canvas';
@@ -31,10 +29,19 @@ if (gallery && lightbox) {
         // A real photo or video has been added — show it enlarged.
         const clone = media.cloneNode(true);
         if (clone.tagName === 'VIDEO') {
-          clone.removeAttribute('autoplay');
-          clone.muted = false;
-          clone.loop = false;
+          // Keeps behaving like a silent looping clip (same as the
+          // thumbnail), just bigger — with controls so it can be paused.
+          clone.muted = true;
+          clone.loop = true;
           clone.controls = true;
+          clone.play().catch(() => {});
+        }
+        if (clone.tagName === 'IMG') {
+          // Click the image to zoom in to full size and scroll around;
+          // click again to fit it back to the screen.
+          clone.addEventListener('click', () => {
+            canvas.classList.toggle('zoomed');
+          });
         }
         canvas.appendChild(clone);
       } else {
