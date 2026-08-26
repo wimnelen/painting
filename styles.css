@@ -1,0 +1,567 @@
+/* =========================================================
+   Design tokens — old terminal / early home computer.
+   Gallery-white screen, one dark-blue accent, pixel type, hard edges.
+   No gradients, no shadows, no rounded corners, no blur.
+   ========================================================= */
+:root {
+  --bg: #F5F3EE;
+  --fg: #111111;
+  --accent: #1D2B53;   /* dark blue */
+  --dim: #6B6B6B;
+
+  --display: 'Press Start 2P', monospace;
+  --body: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --max-w: 900px;
+  --border: 2px solid var(--fg);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img, video { max-width: 100%; display: block; }
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* faint scanlines -- the one atmospheric touch, kept subtle */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.035) 0px,
+    rgba(0,0,0,0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* =========================================================
+   Nav -- a command prompt
+   ========================================================= */
+.site-nav {
+  border-bottom: var(--border);
+  padding: 20px 0;
+}
+
+.site-nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nav-mark {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  color: var(--fg);
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--fg);
+  font-size: 0.95rem;
+}
+
+.nav-links a::before { content: '['; color: var(--dim); }
+.nav-links a::after { content: ']'; color: var(--dim); }
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent); text-decoration: none; }
+
+/* =========================================================
+   Banner
+   ========================================================= */
+.banner {
+  padding: 48px 0 32px;
+}
+
+.banner .path {
+  font-size: 0.8rem;
+  color: var(--dim);
+  margin-bottom: 14px;
+}
+
+.banner .path .accent { color: var(--accent); }
+
+.banner h1 {
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 3.2vw, 1.6rem);
+  line-height: 1.6;
+  margin: 0 0 18px;
+  color: var(--fg);
+}
+
+.banner .cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.banner p {
+  max-width: 60ch;
+  color: var(--fg);
+}
+
+/* =========================================================
+   Featured image block
+   ========================================================= */
+.feature {
+  border: var(--border);
+  margin: 24px 0 8px;
+}
+
+.feature-canvas {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  filter: grayscale(0.35) contrast(1.1);
+  background:
+    repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 6px, #0d0d0d 6px, #0d0d0d 12px);
+}
+
+/* Once a real photo or video is dropped in, drop the fixed 16:9 shape
+   and size the box to the media's own proportions instead. */
+.feature-canvas:has(img),
+.feature-canvas:has(video) {
+  aspect-ratio: auto;
+  filter: none;
+  background: none;
+}
+
+.feature-canvas img,
+.feature-canvas video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.placeholder-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+.feature-caption {
+  font-size: 0.85rem;
+  color: var(--dim);
+  margin: 10px 0 40px;
+}
+
+.feature-caption .accent { color: var(--accent); }
+
+/* =========================================================
+   Section head
+   ========================================================= */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 56px 0 8px;
+}
+
+.section-head h2 {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  margin: 0;
+  color: var(--fg);
+}
+
+.section-head .count {
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+/* =========================================================
+   Gallery -- a directory listing
+   ========================================================= */
+.gallery {
+  margin: 16px 0 80px;
+  border-top: var(--border);
+}
+
+.piece {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--dim);
+  padding: 20px 0;
+  color: var(--fg);
+  font-family: var(--body);
+  cursor: pointer;
+}
+
+.piece:hover { background: rgba(29, 43, 83, 0.06); }
+.piece:hover .thumb { border-color: var(--accent); }
+
+.thumb {
+  aspect-ratio: 4 / 3;
+  border: var(--border);
+  position: relative;
+  filter: grayscale(0.35) contrast(1.1);
+}
+
+/* Once a real photo or video replaces the placeholder, drop the fixed
+   4:3 shape and size the frame to the media's own proportions instead —
+   no cropping or squishing regardless of the painting's orientation. */
+.thumb:has(img),
+.thumb:has(video) {
+  aspect-ratio: auto;
+  filter: none;
+}
+
+.thumb img,
+.thumb video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.thumb-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.68rem;
+  color: var(--dim);
+}
+
+.piece-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.piece-info .no {
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.piece-info .title {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+  color: var(--fg);
+}
+
+.piece-info .meta {
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+.piece-info .desc {
+  font-size: 0.85rem;
+  color: var(--fg);
+  margin: 10px 0 0;
+  max-width: 52ch;
+}
+
+/* placeholder textures -- flat dither/hatch patterns, no color gradients */
+.tex-1 { background: repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 5px, #0a0a0a 5px, #0a0a0a 10px); }
+.tex-2 { background: repeating-linear-gradient(-45deg, #171717 0px, #171717 4px, #0a0a0a 4px, #0a0a0a 8px); }
+.tex-3 { background: repeating-linear-gradient(90deg, #1c1c1c 0px, #1c1c1c 3px, #0a0a0a 3px, #0a0a0a 9px); }
+.tex-4 { background: repeating-linear-gradient(0deg, #191919 0px, #191919 5px, #0a0a0a 5px, #0a0a0a 11px); }
+.tex-5 { background: repeating-linear-gradient(135deg, #1a1a1a 0px, #1a1a1a 4px, #0a0a0a 4px, #0a0a0a 10px); }
+.tex-6 { background: repeating-linear-gradient(60deg, #181818 0px, #181818 6px, #0a0a0a 6px, #0a0a0a 12px); }
+
+/* =========================================================
+   Lightbox
+   ========================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 243, 238, 0.97);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 32px;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  max-width: 700px;
+  width: 100%;
+  border: var(--border);
+}
+
+.lightbox-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+/* Placeholder swatch fallback, applied only when no real media is loaded */
+.lightbox-canvas.tex-1, .lightbox-canvas.tex-2, .lightbox-canvas.tex-3,
+.lightbox-canvas.tex-4, .lightbox-canvas.tex-5, .lightbox-canvas.tex-6 {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  filter: grayscale(0.35) contrast(1.1);
+  position: relative;
+}
+
+.lightbox-canvas img,
+.lightbox-canvas video {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.lightbox-plaque {
+  padding: 18px 20px 22px;
+  border-top: var(--border);
+}
+
+.lightbox-plaque .no { font-size: 0.78rem; color: var(--accent); }
+.lightbox-plaque .title { font-size: 1.1rem; margin: 8px 0 4px; color: var(--fg); }
+.lightbox-plaque .meta { font-size: 0.85rem; color: var(--dim); }
+.lightbox-plaque .desc { font-size: 0.9rem; color: var(--fg); margin-top: 12px; max-width: 52ch; }
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: var(--border);
+  color: var(--fg);
+  width: 40px;
+  height: 40px;
+  font-family: var(--body);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.lightbox-close:hover { color: var(--accent); border-color: var(--accent); }
+
+/* =========================================================
+   About page
+   ========================================================= */
+.about-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  margin: 48px 0 56px;
+  align-items: start;
+}
+
+.portrait {
+  aspect-ratio: 3 / 4;
+  border: var(--border);
+  position: relative;
+  filter: grayscale(0.35) contrast(1.1);
+  background: repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 5px, #0a0a0a 5px, #0a0a0a 10px);
+}
+
+.portrait:has(img),
+.portrait:has(video) {
+  aspect-ratio: auto;
+  filter: none;
+  background: none;
+}
+
+.portrait img,
+.portrait video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-copy p { margin: 0 0 16px; max-width: 62ch; }
+
+.about-copy .quote {
+  border-left: 2px solid var(--accent);
+  padding-left: 16px;
+  margin: 24px 0;
+  color: var(--fg);
+}
+
+/* config-file style facts list */
+.facts {
+  margin: 64px 0;
+  border-top: var(--border);
+  border-bottom: var(--border);
+  padding: 4px 0;
+}
+
+.fact-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--dim);
+  font-size: 0.9rem;
+}
+
+.fact-row:last-child { border-bottom: none; }
+
+.fact-row .key { color: var(--accent); }
+.fact-row .val { color: var(--fg); }
+
+/* =========================================================
+   Subscribe form
+   ========================================================= */
+.sub-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 420px;
+  margin: 20px 0 12px;
+}
+
+.sub-form label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.sub-form input[type="text"],
+.sub-form input[type="email"] {
+  width: 100%;
+  background: transparent;
+  border: var(--border);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 0.95rem;
+  padding: 10px 12px;
+}
+
+.sub-form input[type="text"]:focus,
+.sub-form input[type="email"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sub-submit {
+  align-self: flex-start;
+  background: transparent;
+  border: var(--border);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.sub-submit:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.sub-submit:disabled {
+  color: var(--dim);
+  cursor: default;
+}
+
+.sub-message {
+  border: var(--border);
+  padding: 16px 18px;
+  margin: 20px 0 12px;
+  max-width: 420px;
+  font-size: 0.9rem;
+}
+
+.sub-message.error { color: var(--dim); }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  border-top: var(--border);
+  padding: 24px 0 60px;
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.site-footer a { color: var(--dim); }
+.site-footer a:hover { color: var(--accent); }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 640px) {
+  .piece { grid-template-columns: 100px 1fr; gap: 14px; }
+  .about-hero { grid-template-columns: 1fr; }
+  .fact-row { grid-template-columns: 120px 1fr; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  .lightbox { padding: 16px; }
+  .lightbox-close { top: 16px; right: 16px; width: 34px; height: 34px; }
+  .banner .path { font-size: 0.7rem; }
+  .piece { grid-template-columns: 84px 1fr; gap: 12px; }
+  .thumb-label, .placeholder-label { font-size: 0.62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner .cursor { animation: none; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

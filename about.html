@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Wim Nelen</title>
+<meta name="description" content="About Wim Nelen, painter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-mark">WIM_NELEN</a>
+    <ul class="nav-links">
+      <li><a href="index.html">WORK</a></li>
+      <li><a href="about.html" class="active">ABOUT</a></li>
+      <li><a href="mailto:wim.nelen@gmail.com">MAIL</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <header class="banner">
+    <div class="path">C:\PORTFOLIO\<span class="accent">ABOUT.TXT</span></div>
+    <h1>ABOUT<span class="cursor"></span></h1>
+  </header>
+
+ <div class="about-hero">
+  <div class="portrait">
+    <img src="images/Wim-Nelen.png" alt="image of painter Wim Nelen portrait of a gentleman">
+  </div>
+    <div class="about-copy">
+      <p>
+        Wim Nelen is a Belgian painter exploring the intersection of nature and human experience. His works evoke a sense of wonder and contemplation. He uses vibrant, emotive color and rhythmic brushwork to illuminate the dynamic, living energy inherent within the natural world.
+        Wim mostly works with oil paint, and on occasion also applies oil sticks, acrylics and spray paint.  
+      </p >
+      <p>
+        Following a career in Financial Regulation and after founding a successful software startup, Wim dedicated himself to his passion for painting. He followed painting classes by <a href="https://instagram.com/Jesse_Tomballe" target="_blank" rel="noopener">Jesse Tomballe</a> at <a href="https://www.academie-slac.be" target="_blank" rel="noopener">SLAC academy</a> in Leuven to get started with oil paints.
+      </p>
+      <div class="quote">
+        "Nelen captures light not by mimicking its soft reflection, but by translating its energy directly into vibrant, contrasting colors and thick, directional brushstrokes that physically radiate motion off the canvas."
+      </div>
+      <p>
+         Please reach out via email if you would like to inquire about purchasing a painting, a studio visit or a potential collaboration.
+      </p>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>NOTES.CFG</h2>
+      <span class="count">EDIT FREELY</span>
+    </div>
+    <div class="facts">
+      <div class="fact-row"><span class="key">BASED_IN</span><span class="val">Rotselaar, Belgium</span></div>
+      <div class="fact-row"><span class="key">MEDIUM</span><span class="val">Oil, acrylic, spray paint canvas and paper</span></div>
+      <div class="fact-row"><span class="key">COLLABORATIONS</span><span class="val">Open — get in touch by email</span></div>
+      <div class="fact-row"><span class="key">STUDIO</span><span class="val">Visits by appointment</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>MAILING_LIST.SUB</h2>
+      <span class="count">JOIN</span>
+    </div>
+    <p style="max-width: 62ch; color: var(--dim); font-size: 0.9rem; margin: 8px 0 20px;">
+      Leave your name and email to hear about new paintings and shows.
+    </p>
+
+    <form id="subscribe-form" class="sub-form">
+      <div>
+        <label for="sub-name">NAME</label>
+        <input type="text" id="sub-name" name="name" required>
+      </div>
+      <div>
+        <label for="sub-email">EMAIL</label>
+        <input type="email" id="sub-email" name="email" required>
+      </div>
+
+      <!-- FormSubmit configuration — see README for setup notes -->
+      <input type="hidden" name="_subject" value="New mailing list subscriber">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <button type="submit" class="sub-submit">&gt; SUBSCRIBE_</button>
+    </form>
+
+    <div id="subscribe-success" class="sub-message" hidden>
+      &gt; THANK YOU<span id="sub-name-echo"></span> — YOU'RE ON THE LIST.
+    </div>
+    <div id="subscribe-error" class="sub-message error" hidden>
+      &gt; [ERROR] SOMETHING WENT WRONG. PLEASE TRY AGAIN, OR EMAIL DIRECTLY.
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year"></span> WIM_NELEN</p>
+    <div class="footer-links">
+      <a href="mailto:wim.nelen@gmail.com">wim.nelen@gmail.com</a>
+      <a href="https://instagram.com/wim_nelen" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="https://linkedin.com/in/wim-nelen-cfa-38a41722/" target="_blank" rel="noopener">LINKEDIN</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
