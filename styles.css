@@ -18,6 +18,8 @@
 
 * { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -361,6 +363,26 @@ body::before {
   object-fit: contain;
 }
 
+.lightbox-canvas img { cursor: zoom-in; }
+
+/* Zoomed state — click the image to toggle. Shows it at full natural
+   size and lets the visitor scroll around to see detail up close. */
+.lightbox-canvas.zoomed {
+  overflow: auto;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: zoom-out;
+}
+
+.lightbox-canvas.zoomed img {
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+  margin: 0;
+  cursor: zoom-out;
+}
+
 .lightbox-plaque {
   flex: 0 0 auto;
   padding: 18px 20px 22px;
@@ -523,6 +545,7 @@ body::before {
    ========================================================= */
 .site-footer {
   border-top: var(--border);
+  margin-top: 48px;
   padding: 24px 0 60px;
   font-size: 0.8rem;
   color: var(--dim);
